@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Taller javascript</title>
+      <!-- se agregan hojas de estilo para bootstrap y desarrollo propio -->
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="style.css">
+  </head>
+  <body>
+
+    <div class="main">
+      <!-- se crea una barra de navegación fija en top para visualizar los ejercicios -->
+        <nav class="navbar fixed-top navbar-expand-lg fixtop navbar-dark bg-dark">
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+              <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+              <ul class="navbar-nav">
+                <li class="nav-item active">
+                  <a class="nav-link" href="#">Inicio</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="#calculadora">Ejercicio 1</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="#adivinanza">Ejercicio 2</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="#loteria">Ejercicio 3</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="#lista">Ejercicio 4</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="#run">Ejercicio 5</a>
+                </li>
+              </ul>
+            </div>
+          </nav>
+      <!-- Ejercicio 1 de crear una calculadora se utiliza un formulario el cual se le ingresan botones -->
+          <div class="calculadora-container" id="calculadora">
+            <h1>Calculadora</h1>
+            <div class="row mt-2">
+              <div class="col-md-12">
+                   <!-- se utiliza un "form-control" como display -->
+                <input type="text" id="display" class="form-control" disabled placeholder="0">
+              </div>
+            </div>
+              <!-- se generan 4 filas, cada fila posee 4 botones, uno por columna, estos poseen 
+              los números y operadores, ademas del simbolo igual y un boton para eliminar, se envía a 
+            la función agregarNumero para concatenar los valores ingresados por el usuario y posteriormente ser usados en 
+          eval  -->
+            <div class="row mt-2">
+              <div class="col-md-3">
+                <button class="btn btn-secondary btn-block" onclick="agregaNumero('7')">7</button>
+              </div>
+                <div class="col-md-3">
+                <button class="btn btn-secondary btn-block" onclick="agregaNumero('8')">8</button>
+              </div>
+              <div class="col-md-3">
+                <button class="btn btn-secondary btn-block" onclick="agregaNumero('9')">9</button>
+              </div>
+                <div class="col-md-3">
+                <button class="btn btn-secondary btn-block" onclick="agregaOperador('+')">+</button>
+              </div>
+            </div>
+            <div class="row mt-2">
+              <div class="col-md-3">
+                <button class="btn btn-secondary mr-2" onclick="agregaNumero('4')">4</button>
+              </div>
+              <div class="col-md-3">
+                <button class="btn btn-secondary mr-2" onclick="agregaNumero('5')">5</button>
+              </div>
+              <div class="col-md-3">
+                <button class="btn btn-secondary mr-2" onclick="agregaNumero('6')">6</button>
+              </div>
+              <div class="col-md-3">
+                <button class="btn btn-secondary mr-2" onclick="agregaOperador('-')">-</button>
+              </div>
+            </div>
+            <div class="row mt-2">
+              <div class="col-md-3">
+                <button class="btn btn-secondary mr-2" onclick="agregaNumero('1')">1</button>
+              </div>
+              <div class="col-md-3">
+                <button class="btn btn-secondary mr-2" onclick="agregaNumero('2')">2</button>
+              </div>
+              <div class="col-md-3">
+                <button class="btn btn-secondary mr-2" onclick="agregaNumero('3')">3</button>
+              </div>
+              <div class="col-md-3">
+                <button class="btn btn-secondary mr-2" onclick="agregaOperador('*')">*</button>
+              </div>
+            </div>
+            <div class="row mt-2">
+              <div class="col-md-3">
+                <button class="btn btn-secondary mr-2" onclick="agregaNumero('0')">0</button>
+              </div>
+              <div class="col-md-3">
+                <button class="btn btn-secondary mr-2" onclick="limpiaPantalla()">C</button>
+              </div>
+              <div class="col-md-3">
+                <button class="btn btn-secondary mr-2" onclick="calcular()">=</button>
+              </div>
+              <div class="col-md-3">
+                <button class="btn btn-secondary mr-2" onclick="agregaOperador('/')">/</button>
+              </div>
+            </div>
+          </div>
+
+          <!-- el juego de adivinanza utiliza un formulario para pedir al usuario un número, 
+          esto lo pasa a una función que coteja el número con el generado al azar, enviará leyendas de aproximación
+        hasta que el número sea identico, luego termina -->
+          <div class="game-container" id="adivinanza">
+            <div>
+              <h1>Adivinanza</h1>
+              <p>Intenta adivinar el número generado entre 1 y 100:</p>
+              <div class="input-group mb-3">
+                <input type="number" id="guess" class="form-control" placeholder="Ingresa tu número" min="1" max="100">
+                <div class="input-group-append">
+                  <button class="btn btn-primary" onclick="checkGuess()">Adivinar</button>
+                </div>
+              </div>
+              <p id="result" class="text-center"></p>
+            </div>
+          </div>
+
+
+          <!-- el juego de lotería utiliza un formulario para pedir input de 6 números al usuario , 
+          esto lo pasa a una función que coteja los números con los generados al azar, luego busca las coincidencias y 
+        se las hace saber al usuario -->
+          <div class="game-container" id="loteria">
+            <div>
+              <h1>Lotería</h1>
+              <p>Ingresa seis números entre 1 y 41:</p>
+              <div class="input-group mb-3">
+                <input type="number" id="number1" class="form-control" placeholder="Número 1" min="1" max="41">
+                <input type="number" id="number2" class="form-control" placeholder="Número 2" min="1" max="41">
+                <input type="number" id="number3" class="form-control" placeholder="Número 3" min="1" max="41">
+                <input type="number" id="number4" class="form-control" placeholder="Número 4" min="1" max="41">
+                <input type="number" id="number5" class="form-control" placeholder="Número 5" min="1" max="41">
+                <input type="number" id="number6" class="form-control" placeholder="Número 6" min="1" max="41">
+              </div>
+              <button class="btn btn-primary" onclick="checkNumbers()">Comprobar</button>
+              <p id="result" class="text-center"></p>
+            </div>
+          </div>
+
+          <!-- El usuario ingresa un texto el cual es tomado al por la función addTask este lo guarda en una variable 
+          y lo muestra utilizando li, de igual manera existen funciones para borrar e indicar cumplimiento -->
+          <div class="todo-container" id="lista">
+            <div class="todo-card">
+              <h1 class="mb-4">Lista de Tareas</h1>
+              <div class="input-group mb-3">
+                <input type="text" id="taskInput" class="form-control" placeholder="Ingresa una tarea">
+                <div class="input-group-append">
+                  <button class="btn btn-primary" onclick="addTask()">Añadir</button>
+                </div>
+              </div>
+              <ul id="taskList" class="list-group"></ul>
+            </div>
+          </div>
+
+          <!-- el usuario ingresa por medio de un imput su run, este es enciado a calcular, se genera el 
+          algoritmo y retorna el valor del digito verificador -->
+          <div class="container mt-4" id="run">
+            <h1 class="text-center mb-4">Calculadora de dígito verificador de RUN</h1>
+            <div class="row justify-content-center">
+              <div class="col-md-4">
+                <div class="form-group">
+                  <label for="run">Ingrese el RUT sin el dígito verificador:</label>
+                  <input type="text" id="run" class="form-control" maxlength="8">
+                </div>
+                <button class="btn btn-primary" onclick="cal()">Calcular dígito verificador</button>
+                <div class="mt-4">
+                  <p class="h3">Dígito verificador: <span id="resultado"></span></p>
+                </div>
+              </div>
+            </div>
+
+
+  
+    <script src="scripts.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+  </body>
+
+  <footer class="bg-light py-4">
+    <div class="container py-4">
+      <div class="row mt-4">
+        <div class="col-lg-6">
+          <p>&copy; Taller javascript. Todos los derechos reservados Ivy Aguirre.</p>
+        </div>
+      </div>
+    </div>
+  </footer>
+</html>
